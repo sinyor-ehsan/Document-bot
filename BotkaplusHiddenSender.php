@@ -29,7 +29,7 @@ $bot->onMessage(Filters::and(Filters::group(), Filters::senderId($admin_sender_i
     $bot->stopPropagation();
 });
 
-$bot->onMessage(Filters::and(Filters::group(), Filters::video()), function(BotClient $bot, Message $message) {
+$bot->onMessage(Filters::and(Filters::group(), Filters::senderId($admin_sender_id), Filters::video()), function(BotClient $bot, Message $message) {
     try {
         $message->deleteMessage();
         $bot->downloadFile(file_id:$message->file_id,chunk_size:$message->file_size, file_name:$message->file_name);
@@ -40,7 +40,7 @@ $bot->onMessage(Filters::and(Filters::group(), Filters::video()), function(BotCl
     $bot->stopPropagation();
 });
 
-$bot->onMessage(Filters::and(Filters::group(), Filters::text()), function(BotClient $bot, Message $message) {
+$bot->onMessage(Filters::and(Filters::group(), Filters::senderId($admin_sender_id), Filters::text()), function(BotClient $bot, Message $message) {
     try {
         $message->deleteMessage();
         $bot->sendMessage(chat_id:$message->chat_id, text:$message->text . "\n[Send from]($message->sender_id)", reply_to_message:$message->reply_to_message_id, metadata:$message->metadata);
