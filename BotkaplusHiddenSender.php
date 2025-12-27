@@ -11,11 +11,9 @@ $admin_sender_id = "";
 
 echo "start\n";
 
-$token = "token_bot";
-$inData = file_get_contents('php://input');
-$Data = json_decode($inData);
+$token = "token_bot";
 
-$bot = new BotClient(token: $token, rData:$Data);
+$bot = new BotClient(token: $token);
 // $bot->setWebhook('https://domin.com/BotkaplusHiddenSender.php');
 
 $bot->onMessage(Filters::and(Filters::group(), Filters::senderId($admin_sender_id), Filters::photo()), function(BotClient $bot, Message $message) {
