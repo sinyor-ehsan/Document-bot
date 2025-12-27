@@ -7,10 +7,8 @@ use Botkaplus\Message;
 echo "start\n";
 
 $token = "token_bot";
-$inData = file_get_contents('php://input');
-$Data = json_decode($inData);
 
-$bot = new BotClient(token: $token, rData:$Data);
+$bot = new BotClient(token: $token);
 
 $bot->onMessage(null, function(BotClient $bot, Message $message) {
     $text = <<<'EOT'
