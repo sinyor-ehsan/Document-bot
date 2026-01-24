@@ -1,20 +1,20 @@
 <?php
 
 require "vendor/autoload.php";
-use Botkaplus\BotClient;
-use Botkaplus\Filters;
-use Botkaplus\Message;
-use Botkaplus\KeypadInline;
+use Rubing\BotClient;
+use Rubing\Filters;
+use Rubing\Message;
+use Rubing\InlineKeypad;
 
-// Your sender_id ([Array] or "String")
+// Your sender_id = Array["String", "String"] or "String"
 $admin_sender_id = "";
 
 echo "start\n";
 
-$token = "token_bot";
+$token = "token_bot";
 
 $bot = new BotClient(token: $token);
-// $bot->setWebhook('https://domin.com/BotkaplusHiddenSender.php');
+// $bot->setWebhook('https://yourdomain.com/HiddenSender.php');
 
 $bot->onMessage(Filters::and(Filters::group(), Filters::senderId($admin_sender_id), Filters::photo()), function(BotClient $bot, Message $message) {
     try {
@@ -50,30 +50,29 @@ $bot->onMessage(Filters::and(Filters::group(), Filters::senderId($admin_sender_i
 });
 
 $bot->onMessage(Filters::and(Filters::private(), Filters::text('اینلاین')), function(BotClient $bot, Message $message) {
-    $keypad = new KeypadInline();
+    $keypad = new InlineKeypad();
 
     // ردیف اول
     $keypad->addRow([
-        KeypadInline::simpleButton("Botkaplus_1", "Botkaplus 1")
+        InlineKeypad::buttonSimple("Rubing_1", "Rubing 1")
     ]);
 
     // ردیف دوم
     $keypad->addRow([
-        KeypadInline::simpleButton("Botkaplus_2", "Botkaplus 2"),
-        KeypadInline::simpleButton("Botkaplus_3", "Botkaplus 3")
+        InlineKeypad::buttonSimple("Rubing_2", "Rubing 2"),
+        InlineKeypad::buttonSimple("Rubing_3", "Rubing 3")
     ]);
 
     $inline_keypad = $keypad->build();
-    $message->replyMessage("**hello __from ~~[Botkaplus!](https://github.com/sinyor-ehsan/Rubika)~~__**", inline_keypad:$inline_keypad);
+    $message->replyMessage("**hello __from ~~[Rubing!](https://github.com/sinyor-ehsan/Rubika)~~__**", inline_keypad:$inline_keypad);
 });
 
 $bot->onInlineMessage(null, function(BotClient $bot, Message $message) {
-    if ($message->button_id === "Botkaplus_1"){$message->replyMessage("clicked on Botkaplus 1.");}
-    else if ($message->button_id === "Botkaplus_2"){$message->replyMessage("clicked on Botkaplus 2.");}
-    else if ($message->button_id === "Botkaplus_3"){$message->replyMessage("clicked on Botkaplus 3.");}
+    if ($message->button_id === "Rubing_1"){$message->replyMessage("clicked on Rubing 1.");}
+    else if ($message->button_id === "Rubing_2"){$message->replyMessage("clicked on Rubing 2.");}
+    else if ($message->button_id === "Rubing_3"){$message->replyMessage("clicked on Rubing 3.");}
 });
 
 $bot->run();
 
 ?>
-
